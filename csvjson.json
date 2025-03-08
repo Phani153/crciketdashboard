@@ -1,0 +1,52 @@
+[
+  {
+    "Player Name": "Virat Kohli",
+    "Role": "Batsman",
+    "Matches Played": 500,
+    "Runs Scored": 25000,
+    "Batting Average": 53,
+    "Wickets Taken": "-",
+    "Best Bowling Figures": "-",
+    "Strike Rate": 92.5
+  },
+  {
+    "Player Name": "Rohit Sharma",
+    "Role": "Batsman",
+    "Matches Played": 450,
+    "Runs Scored": 18000,
+    "Batting Average": 49.5,
+    "Wickets Taken": "-",
+    "Best Bowling Figures": "-",
+    "Strike Rate": 88.7
+  },
+  {
+    "Player Name": "Jasprit Bumrah",
+    "Role": "Bowler",
+    "Matches Played": 200,
+    "Runs Scored": 500,
+    "Batting Average": "-",
+    "Wickets Taken": 350,
+    "Best Bowling Figures": "6/19",
+    "Strike Rate": "-"
+  },
+  {
+    "Player Name": "Ravindra Jadeja",
+    "Role": "All-rounder",
+    "Matches Played": 300,
+    "Runs Scored": 6000,
+    "Batting Average": 35.2,
+    "Wickets Taken": 450,
+    "Best Bowling Figures": "7/48",
+    "Strike Rate": 85
+  },
+  {
+    "Player Name": "Shubman Gill",
+    "Role": "Batsman",
+    "Matches Played": 100,
+    "Runs Scored": 4000,
+    "Batting Average": 47.8,
+    "Wickets Taken": "-",
+    "Best Bowling Figures": "-",
+    "Strike Rate": 90.3
+  }
+]

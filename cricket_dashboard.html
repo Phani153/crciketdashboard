@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cricket Analysis Dashboard</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #a8c0ff, #3f2b96);
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        input {
+            margin-bottom: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+        }
+        .chart-container {
+            width: 40%;
+            margin: 20px auto;
+            padding: 20px;
+            backdrop-filter: blur(15px);
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Cricket Analysis Performance Dashboard</h2>
+        <input type="file" id="fileInput" accept=".json">
+    </div>
+    
+    <div class="chart-container" id="barChart"></div>
+    <div class="chart-container" id="scatterPlot"></div>
+    <div class="chart-container" id="lineChart"></div>
+    <div class="chart-container" id="heatmap"></div>
+    <div class="chart-container" id="pieChart"></div>
+    
+    <script>
+        document.getElementById('fileInput').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const data = JSON.parse(e.target.result);
+                    generateDashboard(data);
+                };
+                reader.readAsText(file);
+            }
+        });
+
+        function generateDashboard(data) {
+            const players = data.map(d => d["Player Name"]);
+            const runs = data.map(d => d["Runs Scored"]);
+            const matches = data.map(d => d["Matches Played"]);
+            const strikeRate = data.map(d => d["Strike Rate"] || 0);
+            const wickets = data.map(d => d["Wickets Taken"] !== "-" ? d["Wickets Taken"] : 0);
+            const roles = data.map(d => d["Role"]);
+            
+            Plotly.newPlot('barChart', [{ x: players, y: runs, type: 'bar', marker: { color: 'blue' }}], { title: 'Runs Scored by Players' });
+            
+            Plotly.newPlot('scatterPlot', [{ x: matches, y: runs, mode: 'markers', type: 'scatter', marker: { size: 10, color: 'red' }}], { title: 'Matches Played vs. Runs Scored', xaxis: { title: 'Matches Played' }, yaxis: { title: 'Runs Scored' } });
+            
+            Plotly.newPlot('lineChart', [{ x: players, y: strikeRate, type: 'scatter', mode: 'lines+markers', line: { color: 'green' }}], { title: 'Strike Rate Comparison' });
+            
+            Plotly.newPlot('heatmap', [{ z: wickets, x: players, y: ['Wickets Taken'], type: 'heatmap', colorscale: 'Blues' }], { title: 'Best Bowling Figures Heatmap' });
+            
+            const roleCounts = {};
+            roles.forEach(role => { roleCounts[role] = (roleCounts[role] || 0) + 1; });
+            Plotly.newPlot('pieChart', [{ labels: Object.keys(roleCounts), values: Object.values(roleCounts), type: 'pie' }], { title: 'Player Role Distribution' });
+        }
+    </script>
+</body>
+</html>
